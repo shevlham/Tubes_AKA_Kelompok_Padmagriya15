@@ -8,7 +8,7 @@ import pandas as pd
 # Konfigurasi halaman
 st.set_page_config(
     page_title="Perbandingan Algoritma Palindrome",
-    page_icon="🔄",
+    page_icon="logo.png",
     layout="wide"
 )
 
@@ -51,7 +51,7 @@ st.markdown("""
     /* Sidebar with dark emerald theme */
     [data-testid="stSidebar"] {
         background: #070F2B;
-        border-right: 3px solid #10b981;
+        border-right: 3px solid #1B1A55;
     }
     
     [data-testid="stSidebar"] h2, [data-testid="stSidebar"] h3 {
@@ -517,7 +517,7 @@ def run_simulation(test_data: str, speed: float):
     iterative_status.markdown(f"""
     <div class="status-box iterative-box">
         <p style='font-size: 18px; font-weight: 700; margin: 8px 0;'>Selesai!</p>
-        <p style='font-size: 16px; margin: 8px 0;'><strong>Hasil:</strong> <span style='color: #fbbf24; font-weight: 800;'>{'PALINDROME ' if is_palindrome_iter else 'BUKAN PALINDROME ✗'}</span></p>
+        <p style='font-size: 16px; margin: 8px 0;'><strong>Hasil Algoritma Iteratif:</strong> <span style='color: #fbbf24; font-weight: 800;'>{'PALINDROME ' if is_palindrome_iter else 'BUKAN PALINDROME ✗'}</span></p>
     </div>
     """, unsafe_allow_html=True)
     iter_progress.progress(1.0)
@@ -547,7 +547,7 @@ def run_simulation(test_data: str, speed: float):
     recursive_status.markdown(f"""
     <div class="status-box recursive-box">
         <p style='font-size: 18px; font-weight: 700; margin: 8px 0;'>Selesai!</p>
-        <p style='font-size: 16px; margin: 8px 0;'><strong>Hasil:</strong> <span style='color: #fbbf24; font-weight: 800;'>{'PALINDROME ' if is_palindrome_rec else 'BUKAN PALINDROME ✗'}</span></p>
+        <p style='font-size: 16px; margin: 8px 0;'><strong>Hasil Algoritma Rekursif:</strong> <span style='color: #fbbf24; font-weight: 800;'>{'PALINDROME ' if is_palindrome_rec else 'BUKAN PALINDROME ✗'}</span></p>
     </div>
     """, unsafe_allow_html=True)
     rec_progress.progress(1.0)
@@ -626,42 +626,9 @@ def run_simulation(test_data: str, speed: float):
         st.markdown("""
         <div class="stat-card">
             <div class="stat-label">Memory Rekursif</div>
-            <div class="stat-value">~s{} bytes</div>
+            <div class="stat-value">{} bytes</div>
         </div>
         """.format(memory_est), unsafe_allow_html=True)
-
-    
-    # Tabel perbandingan
-    st.markdown("<br>", unsafe_allow_html=True)
-    st.markdown("<h3 style='text-align: center;'>Tabel Perbandingan Detail</h3>", unsafe_allow_html=True)
-    comparison_df = pd.DataFrame({
-        'Metrik': [
-            'Waktu Eksekusi (detik)',
-            'Jumlah Perbandingan',
-            'Kompleksitas Waktu',
-            'Kompleksitas Ruang',
-            'Kedalaman Rekursi',
-            'Overhead Memory'
-        ],
-        'Iteratif': [
-            f"{time_iter:.6f}",
-            checker.iterative_comparisons,
-            'O(n)',
-            'O(1)',
-            '-',
-            'Minimal'
-        ],
-        'Rekursif': [
-            f"{time_rec:.6f}",
-            checker.recursive_comparisons,
-            'O(n)',
-            'O(n)',
-            checker.max_recursive_depth,
-            f'~{memory_est} bytes'
-        ]
-    })
-    
-    st.dataframe(comparison_df, use_container_width=True)
 
 if __name__ == "__main__":
     main()
